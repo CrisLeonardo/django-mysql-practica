@@ -16,6 +16,14 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Variables desde un archivo .env (usado en PythonAnywhere); no pisa las ya definidas.
+_env_file = BASE_DIR / '.env'
+if _env_file.exists():
+    for _line in _env_file.read_text(encoding='utf-8').splitlines():
+        _key, _sep, _value = _line.partition('=')
+        if _sep and not _line.lstrip().startswith('#'):
+            os.environ.setdefault(_key.strip(), _value.strip())
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
