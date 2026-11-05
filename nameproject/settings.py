@@ -37,6 +37,12 @@ if _railway_domain:
     ALLOWED_HOSTS.append(_railway_domain)
     CSRF_TRUSTED_ORIGINS.append(f'https://{_railway_domain}')
 
+# Render publica el dominio asignado en esta variable.
+_render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if _render_host:
+    ALLOWED_HOSTS.append(_render_host)
+    CSRF_TRUSTED_ORIGINS.append(f'https://{_render_host}')
+
 
 # Application definition
 
@@ -98,6 +104,10 @@ DATABASES = {
         },
     }
 }
+
+# Proveedores como Aiven exigen SSL: DB_SSL_CA es la ruta al certificado de la CA (ca.pem).
+if os.environ.get('DB_SSL_CA'):
+    DATABASES['default']['OPTIONS']['ssl'] = {'ca': os.environ['DB_SSL_CA']}
 
 
 # Password validation

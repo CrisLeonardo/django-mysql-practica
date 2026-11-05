@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: django-mysql-practica
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: python manage.py migrate --noinput && gunicorn nameproject.wsgi --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      # Solo para MySQL 8.0 (Aiven); Django 6.1 pide 8.4+.
+      - key: ALLOW_OLD_MARIADB
+        value: "1"
+      # Ruta del Secret File con el certificado de la CA de Aiven.
+      - key: DB_SSL_CA
+        value: /etc/secrets/ca.pem
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
