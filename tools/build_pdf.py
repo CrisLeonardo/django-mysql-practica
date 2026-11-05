@@ -7,6 +7,7 @@
 Sin --url ni capturas, la sección de despliegue queda marcada como pendiente.
 """
 import argparse
+from datetime import date
 from pathlib import Path
 
 from PIL import Image
@@ -17,6 +18,8 @@ from reportlab.lib.units import cm
 from reportlab.platypus import (Image as RLImage, PageBreak, Paragraph,
                                 Preformatted, SimpleDocTemplate, Spacer, Table, TableStyle)
 
+MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto',
+         'septiembre', 'octubre', 'noviembre', 'diciembre']
 ROOT = Path(__file__).resolve().parent.parent
 EV = ROOT / 'evidencia'
 
@@ -81,7 +84,7 @@ story += [Spacer(1, 3 * cm),
           Spacer(1, 3 * cm),
           Paragraph(f'<b>Estudiante:</b> {a.nombre}', CENTER),
           Paragraph(f'<b>Carné:</b> {a.carnet}', CENTER),
-          Paragraph('<b>Fecha:</b> 2 de noviembre de 2026', CENTER),
+          Paragraph(f'<b>Fecha:</b> {date.today().day} de {MESES[date.today().month - 1]} de {date.today().year}', CENTER),
           PageBreak()]
 
 # ---- Local
