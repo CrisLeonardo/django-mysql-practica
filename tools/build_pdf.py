@@ -125,8 +125,8 @@ if a.deploy_dir:
     d = Path(a.deploy_dir)
     deploy_imgs = sorted(p for p in d.glob('*') if p.suffix.lower() in ('.png', '.jpg', '.jpeg'))
 if deploy_imgs:
-    story.append(Paragraph('Plataforma: Railway (servicio web Django + base de datos MySQL). '
-                           'Configuración en el repositorio: <font face="Courier">Procfile</font>, '
+    story.append(Paragraph('Plataforma: Render (servicio web Django) con base de datos MySQL en Aiven. '
+                           'Configuración en el repositorio: <font face="Courier">render.yaml</font>, '
                            '<font face="Courier">requirements.txt</font>, variables de entorno y '
                            '<font face="Courier">DESPLIEGUE.md</font>.', P))
     for p in deploy_imgs:
